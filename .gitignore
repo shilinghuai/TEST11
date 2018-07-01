@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+**/target/
+**/*.iml
+#/yuanrong-admin/*/src/main/resources/zookeeper.properties
+
+#/logs/*.log
