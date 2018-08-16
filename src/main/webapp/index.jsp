@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <html>
 
 <head>
@@ -10,8 +11,8 @@
 <div id="vueFirst">
     <p>{{message}}</p>
 </div>
-<form >
-
+<form action="${pageContext.request.contextPath}/test" method="post">
+    <input type="submit" value="注册">
 </form>
 </body>
 <script>
@@ -24,4 +25,3 @@
 </script>
 
 </html>
-develop
