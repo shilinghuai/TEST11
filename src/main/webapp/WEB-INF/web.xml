@@ -15,4 +15,17 @@
     <servlet-name>springMVC</servlet-name>
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>springMVC1</servlet-name>
+    <servlet-class>controller.Test2Servelet</servlet-class>
+  </servlet>
+
+  <!-- Map all requests to the DispatcherServlet for handling -->
+  <servlet-mapping>
+    <servlet-name>springMVC1</servlet-name>
+    <url-pattern>/test11</url-pattern>
+  </servlet-mapping>
+
+
 </web-app>

@@ -1,0 +1,157 @@
+关键词：vMaxDays,nDays,31,Dim,vMinDays,100,sDesc,fn,30,End,Caption,bug,地址,String,sDate,vbCrLf,Mod,TotalDays,nYear,MDays,
+在 firstdate.txt 里写上开始戒的日期，格式：年-月-日（yyyy-mm-dd），把"戒为男神.exe"在启动文件夹创建一个快捷方式，每天一开电脑就可以看到已戒天数和当前等级啦。
+
+界面：
+
+由于时间和水平有限，界面做得不够漂亮，如果我们贴吧里有编程高手可以在我的基础上继续开发。
+
+开发工具：VB6.
+
+源码：
+
+Option Explicit
+
+Private Sub Form_Load()
+
+Dim vMinDays As Variant
+
+Dim vMaxDays As Variant
+
+Dim sDesc() As String
+
+Dim sDate As String
+
+Dim nDays As Integer
+
+Dim i As Byte
+
+Dim s As String
+
+
+
+Open App.Path & "\firstdate.txt" For Input As #1
+
+Line Input #1, sDate
+
+Close #1
+
+
+
+nDays = DateDiff("d", sDate, Date)
+
+
+
+vMinDays = Array(0, 4, 8, 16, 24, 31, 36, 46, 56, 66, 76, 86, 101, 121, 131, 141, 151, 161, 171, 181, 201, 231, 251, 281, 301)
+
+vMaxDays = Array(3, 7, 15, 23, 30, 35, 45, 55, 65, 75, 85, 100, 120, 130, 140, 150, 160, 170, 180, 200, 230, 250, 280, 300, 365)
+
+sDesc = Split("大淫魔,猥琐男,矮穷丑,2B青年,灰头土脑,从头开始,普通人,重拾自我,欲火渐盛,渡过难关,小有所成,有点帅了,我是土豪,糕富帅！,型男帅哥,气场大增,MM杀手！,气力充沛,铁板之腰,钢筋铁骨,金钟罩铁布衫,梁山好汉,盛气凌人,渐入佳境,心无邪念", ",")
+
+
+
+For i = 0 To UBound(sDesc)
+
+If nDays >= vMinDays(i) And nDays <= vMaxDays(i) Then
+
+Exit For
+
+End If
+
+Next i
+
+
+
+s = "已戒天数：" & nDays & vbCrLf _
+
+& "当前等级：" & vMinDays(i) & "~" & vMaxDays(i) & "（" & sDesc(i) & "）" & vbCrLf
+
+If i < UBound(sDesc) Then
+
+s = s & "距下一等级还有 " & vMaxDays(i) - nDays + 1 & " 天" & vbCrLf _
+
+& "下一等级为：" & vMinDays(i + 1) & "~" & vMaxDays(i + 1) & "（" & sDesc(i + 1) & "）"
+
+End If
+
+
+
+lblInfo.Caption = s
+
+lblMin.Caption = vMinDays(i)
+
+lblMax.Caption = vMaxDays(i)
+
+lblCur.Caption = nDays
+
+
+
+With ProgressBar1
+
+.Min = vMinDays(i)
+
+.Max = vMaxDays(i)
+
+.Value = nDays
+
+End With
+
+End Sub
+
+下载地址：
+
+下载地址在1楼的最下面。
+
+不好意思，由于之前没有详细测试，被一位戒友发现了bug。经过我的调试，这个bug在天数>100天时出现，原因是 progressbar 控件的初始 max 值为100，当设置min值大于100时这个bug就出现了。已经修改。
+
+更正版下载地址：
+
+这回我把max的初值改为了 36500，只要戒的时间<100年都不会出bug
+
+安卓版的核心代码已经写好：
+
+fn.def LEAP(y)
+
+fn.rtn Mod(y, 4) = 0 & Mod(y, 100) | Mod(y, 400) = 0
+
+fn.end
+
+fn.def TotalDays(nYear, nMonth, nDay)
+
+c = nDay
+
+y = nYear - 1
+
+
+
+array.load MDays[], 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+
+MDays[2] = 28 + LEAP(nYear)
+
+
+
+For m = 1 To nMonth - 1
+
+c = c + MDays[m]
+
+Next m
+
+
+
+fn.rtn c + floor(y / 4) - floor(y / 100) + floor(y / 400) + y * 365
+
+fn.end
+
+t1 = TotalDays(2014, 11, 22)
+
+t2 = TotalDays(2015, 1, 19)
+
+print "已经戒了";format$("###", t2-t1);"天"
+
+还要加入输入系统，编译为独立app，还有无法显示中文的问题。
+
+我刚发现，原来用手机和平板是看不到下载地址的。怪不知道那么多人说找不到下载地址
+
+安卓 apk 做好了，看
+
+的一楼，最下面有链接，如果手机看不到链接用电脑看。
+
